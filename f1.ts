@@ -1,23 +1,48 @@
-export function kasPositiivne(arv:number){
-    return arv>0;
-}
-
-export function countLetterA(text) {
-    let count = 0;
-    for (let i = 0; i < text.length; i++) {
-        if (text[i] === 'a') {
-            count++;
+class Calculator{
+    protected panelContents:string="";
+    protected memoryContents:number=0;
+    protected markContents:string="";
+    protected markPressed:boolean=false;
+    protected marks:string[]=["+", "-", "X", "/"];
+    pressButton(b:string):void{
+        if(b=="C"){this.panelContents=""}
+        else if(this.marks.includes(b)){
+            this.memoryContents=parseFloat(this.panelContents);
+            this.markContents=b;
+            this.markPressed=true;
+        } else if(b=="="){
+            this.markPressed=true;
+            if(this.markContents.length==1){
+                if(this.markContents=="+"){
+                    this.panelContents=(this.memoryContents+parseFloat(this.panelContents)).toString();
+                }
+                if(this.markContents=="-"){
+                    this.panelContents=(this.memoryContents-parseFloat(this.panelContents)).toString();
+                }
+                if(this.markContents=="X"){
+                    this.panelContents=(this.memoryContents*parseFloat(this.panelContents)).toString();
+                }
+                if(this.markContents=="/"){
+                    this.panelContents=(this.memoryContents/parseFloat(this.panelContents)).toString();
+                }
+            }
+        }
+        else{
+            if(this.markPressed){
+                this.panelContents="";
+                this.markPressed=false;
+            }
+            this.panelContents+=b;
         }
     }
-    return count;
+    getPanelContents():string{
+        if(this.panelContents.length>0){
+            return this.panelContents;
+        }
+        return "0";
+    }
 }
 
-export function countAllLetterA(text) {
-    let count = 0;
-    for (let i = 0; i < text.length; i++) {
-        if (text[i].toLowerCase() === 'a') {
-            count++;
-        }
-    }
-    return count;
+export{
+    Calculator
 }

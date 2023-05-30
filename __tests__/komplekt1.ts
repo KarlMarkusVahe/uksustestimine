@@ -1,33 +1,119 @@
-test('test1', () => {
-    expect(3+2).toBe(5);
+import {Calculator} from "../f1";
+
+let calcobj:Calculator=null;
+
+beforeEach(() => {
+    calcobj=new Calculator();
 });
 
-import {kasPositiivne} from "../f1";
-test("sugu m", ()=>{
-    expect(kasPositiivne(3)).toBe(true);
-    expect(kasPositiivne(0)).toBe(false);
-    expect(kasPositiivne(-5)).toBe(false);
+
+test('empty init', () => {
+    expect(calcobj.getPanelContents()).toBe("0");
 });
 
-import {Isikukood} from "../k1";
-test("positiivne", ()=>{
-    expect(new Isikukood("37605030299").sugu()).toBe("M");
+test('simple input', ()=>{
+    calcobj.pressButton('7');
+    expect(calcobj.getPanelContents()).toBe("7");
 });
 
-test("positiivne2", ()=>{
-    expect(new Isikukood("48209030299").aasta()).toBe(1982);
+test('simple input', ()=>{
+    calcobj.pressButton('8');
+    expect(calcobj.getPanelContents()).toBe("8");
 });
 
-import {countLetterA} from "../f1"
-test('countLetterA function should correctly count the number of "a" letters', () => {
-    const text = 'A quick brown fox jumps over the lazy dog.';
-    const result = countLetterA(text);
-    expect(result).toBe(1);
+test('multiple symbols input', ()=>{
+    calcobj.pressButton('7');
+    calcobj.pressButton('8');
+    expect(calcobj.getPanelContents()).toBe("78");
 });
 
-import {countAllLetterA} from "../f1"
-test('countLetterA function should correctly count the number of "a" letters', () => {
-    const text = 'A quick brown fox jumps over the lazy dog.';
-    const result = countAllLetterA(text);
-    expect(result).toBe(2);
+test('multiple symbols input', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('2');
+    expect(calcobj.getPanelContents()).toBe("32");
+});
+
+test('clear panel', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('2');
+    calcobj.pressButton('C');
+    expect(calcobj.getPanelContents()).toBe("0");
+});
+
+test('adding 1', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('+');
+    calcobj.pressButton('2');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("5");
+});
+
+test('subtracting 1', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('-');
+    calcobj.pressButton('2');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("1");
+});
+
+
+
+
+test('multiply 2', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('X');
+    calcobj.pressButton('2');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("6");
+});
+
+test('divide 1', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('/');
+    calcobj.pressButton('2');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("1.5");
+});
+
+test('mark and panel adding', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('+');
+    expect(calcobj.getPanelContents()).toBe("3");
+});
+
+test('mark and panel subtracting', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('-');
+    expect(calcobj.getPanelContents()).toBe("3");
+});
+
+test('second calculation start', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('+');
+    calcobj.pressButton('2');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("5");
+    calcobj.pressButton('4');
+    expect(calcobj.getPanelContents()).toBe("4");
+});
+
+test('continous calculation', ()=>{
+    calcobj.pressButton('3');
+    calcobj.pressButton('+');
+    calcobj.pressButton('2');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("5");
+    calcobj.pressButton('+');
+    calcobj.pressButton('1');
+    calcobj.pressButton('=');
+    expect(calcobj.getPanelContents()).toBe("6");
+});
+
+
+test('floating point', ()=>{
+    calcobj.pressButton('5');
+    calcobj.pressButton('/');
+    calcobj.pressButton('3');
+    calcobj.pressButton('=');
+    expect(parseFloat(calcobj.getPanelContents())).toBeCloseTo(1.6666666, 6);
 });

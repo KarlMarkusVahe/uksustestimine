@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            text-align: center;
+            margin-right: 30px;
+        }
+
+        .calculator-row {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .calculator-button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <h1>Calculator</h1>
+    <form method="post">
+        <input type="text" name="button" value="<%= panelContents %>" disabled>
+        <div class="calculator-row">
+            <button class="calculator-button" type="submit" name="button" value="1">1</button>
+            <button class="calculator-button" type="submit" name="button" value="2">2</button>
+            <button class="calculator-button" type="submit" name="button" value="3">3</button>
+            <button class="calculator-button" type="submit" name="button" value="4">4</button>
+        </div>
+        <div class="calculator-row">
+            <button class="calculator-button" type="submit" name="button" value="5">5</button>
+            <button class="calculator-button" type="submit" name="button" value="6">6</button>
+            <button class="calculator-button" type="submit" name="button" value="7">7</button>
+            <button class="calculator-button" type="submit" name="button" value="8">8</button>
+        </div>
+        <div class="calculator-row">
+            <button class="calculator-button" type="submit" name="button" value="9">9</button>
+            <button class="calculator-button" type="submit" name="button" value="0">0</button>
+            <button class="calculator-button" type="submit" name="button" value="X">X</button>
+            <button class="calculator-button" type="submit" name="button" value="/">/</button>
+        </div>
+        <div class="calculator-row">
+            <button class="calculator-button" type="submit" name="button" value="-">-</button>
+            <button class="calculator-button" type="submit" name="button" value="+">+</button>
+            <button class="calculator-button" type="submit" name="button" value="=">=</button>
+            <button class="calculator-button" type="submit" name="button" value="C">C</button>
+        </div>
+        <!-- Add buttons for other digits and operations -->
+    </form>
+</div>
+</body>
+</html>
